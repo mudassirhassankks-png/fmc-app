@@ -1,81 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FMC Gusau - Patient Manager - Secured</title>
-<link rel="icon" type="image/png" href="logo.png">
-<link rel="apple-touch-icon" href="logo.png">
-<link rel="manifest" href="manifest.json">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FMC Gusau - Secured</title>
 <meta name="theme-color" content="#0a5c26">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
 body{background:#eef5f0}
-.header{background:#0a5c26;color:#fff;padding:16px;position:sticky;top:0;z-index:20;display:flex;justify-content:space-between;align-items:center}
-.header-left{display:flex;align-items:center;gap:10px}
-.header-logo{width:45px;height:45px;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;overflow:hidden}
-.header-logo img{width:100%;height:100%;object-fit:cover}
+.header{background:#0a5c26;color:#fff;padding:14px;position:sticky;top:0;z-index:20;display:flex;justify-content:space-between;align-items:center}
+.logo-svg{width:44px;height:44px;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;color:#0a5c26;border:2px solid #fff}
 .container{max-width:650px;margin:auto;padding:12px}
 .card{background:#fff;border-radius:14px;padding:18px;box-shadow:0 4px 12px rgba(0,0,0,.08);margin-bottom:12px}
 input,select,textarea{width:100%;padding:12px;border:2px solid #e5e7eb;border-radius:10px;margin:6px 0;font-size:15px}
-input:focus{border-color:#0a5c26;outline:none}
-.btn{padding:12px;border:none;border-radius:10px;font-weight:bold;cursor:pointer;width:100%;margin-top:8px;font-size:15px}
+.btn{padding:12px;border:none;border-radius:10px;font-weight:bold;cursor:pointer;width:100%;margin-top:8px}
 .btn-green{background:#0a5c26;color:#fff}.btn-yellow{background:#FFCC00;color:#000}
-.btn-small{padding:6px 12px;font-size:12px;border-radius:6px;border:none;cursor:pointer;font-weight:bold;width:auto}
-.btn-view{background:#FFCC00;color:#000}.btn-edit{background:#007bff;color:#fff}.btn-del{background:#dc3545;color:#fff}
-.patient{display:flex;gap:12px;background:#fff;border-radius:14px;padding:14px;margin:10px 0;align-items:center;box-shadow:0 2px 8px rgba(0,0,0,.07)}
+.btn-small{padding:6px 10px;font-size:12px;border-radius:6px;border:none;cursor:pointer;font-weight:bold;width:auto}
+.patient{display:flex;gap:12px;background:#fff;border-radius:14px;padding:14px;margin:10px 0;align-items:center}
 .patient img{width:70px;height:70px;border-radius:50%;object-fit:cover;border:3px solid #0a5c26}
-.total-bar{background:#0a5c26;color:#fff;padding:16px;border-radius:12px;display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
-.detail{background:#f6fff6;border:2px dashed #0a5c26;border-radius:10px;padding:12px;margin-top:10px;font-size:14px}
+.total-bar{background:#0a5c26;color:#fff;padding:14px;border-radius:12px;display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
 .hidden{display:none!important}
 #preview{width:90px;height:90px;border-radius:50%;object-fit:cover;display:none;margin:10px auto;border:3px solid #0a5c26}
-/* LOCK SCREEN */
-.lock-screen{position:fixed;inset:0;background:#0a1f0a;z-index:99999;display:flex;align-items:center;justify-content:center;padding:20px}
-.lock-box{background:#fff;border-radius:20px;padding:25px;width:100%;max-width:380px;text-align:center;box-shadow:0 10px 30px rgba(0,0,0,.5)}
-.shake{animation:shake.3s}@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.lock-screen{position:fixed;inset:0;background:#0a1f0a;z-index:99999;display:flex;align-items:center;justify-content:center;padding:18px}
+.lock-box{background:#fff;border-radius:20px;padding:22px;width:100%;max-width:380px;text-align:center}
 </style>
 </head>
 <body>
 
-<!-- SECURITY LOCK SCREEN -->
 <div id="lockScreen" class="lock-screen">
-<div id="lockBox" class="lock-box">
-<div style="width:80px;height:80px;margin:0 auto 10px;background:#fff;border-radius:50%;overflow:hidden;border:3px solid #0a5c26">
-<img src="logo.png" style="width:100%;height:100%;object-fit:cover" onerror="this.style.display='none'">
+<div class="lock-box">
+<!-- LOGO - EMBEDDED SVG - ALWAYS SHOWS -->
+<div style="width:100px;height:100px;margin:0 auto 10px;border:4px solid #0a5c26;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#fff;flex-direction:column">
+<div style="font-size:28px">🏥</div>
+<div style="font-weight:900;color:#0a5c26;font-size:12px;line-height:1">FMC<br>GUSAU</div>
 </div>
-<h2 style="color:#0a5c26;margin:5px 0">FMC GUSAU</h2>
+
+<h2 style="color:#0a5c26">FMC GUSAU</h2>
 <small style="color:#666">Federal Medical Centre, Zamfara State<br><b>Secured Patient Database</b></small>
 
-<div id="createPasswordSection" class="hidden">
+<div id="createSection">
 <p style="margin:12px 0;font-weight:bold;color:#0a5c26">Create Your Own Password (First Time)</p>
 <input id="newPass" type="password" placeholder="Create Password * e.g 1234">
 <input id="confirmPass" type="password" placeholder="Confirm Password *">
 <button class="btn btn-green" onclick="createPassword()">CREATE PASSWORD & LOGIN 🔐</button>
-<small style="color:#888;display:block;margin-top:8px">Remember this password. You will use it to open the app.</small>
 </div>
 
-<div id="loginPasswordSection" class="hidden">
-<p style="margin:12px 0;font-weight:bold;color:#0a5c26">Enter Your Password to Unlock</p>
-<div id="loginAlert" class="hidden" style="padding:10px;border-radius:8px;margin:10px 0;font-weight:bold;font-size:13px"></div>
+<div id="loginSection" class="hidden">
+<p style="margin:12px 0;font-weight:bold;color:#0a5c26">Enter Password to Unlock</p>
+<div id="loginAlert" class="hidden" style="padding:10px;border-radius:8px;margin:8px 0;font-weight:bold;font-size:13px"></div>
 <input id="loginPass" type="password" placeholder="Enter Your Password *">
 <button class="btn btn-yellow" onclick="login()">UNLOCK APP 🔓</button>
-<div style="margin-top:15px;padding-top:15px;border-top:2px dashed #eee">
-<button class="btn" style="background:#eee;color:#000" onclick="resetPassword()">Forgot Password? Reset App</button>
-<small style="color:#999;display:block;margin-top:6px">Reset will delete all patients data</small>
-</div>
+<button class="btn" style="background:#eee;color:#000;margin-top:12px" onclick="resetAll()">Forgot Password? Reset</button>
 </div>
 
 </div>
 </div>
 
-<!-- MAIN APP -->
 <div class="header">
-<div class="header-left">
-<div class="header-logo"><img src="logo.png" alt="Logo" onerror="this.parentElement.innerHTML='🏥'"></div>
-<div>
-<div style="font-weight:900;font-size:15px">FMC GUSAU</div>
-<small style="font-size:10px">Patient Manager - Secured</small>
-</div>
+<div style="display:flex;align-items:center;gap:10px">
+<div class="logo-svg">FMC</div>
+<div><div style="font-weight:900;font-size:15px">FMC GUSAU</div><small style="font-size:10px">Zamfara State</small></div>
 </div>
 <div style="display:flex;gap:6px;align-items:center">
 <span id="count" style="background:#FFCC00;color:#000;padding:5px 10px;border-radius:20px;font-weight:bold;font-size:11px">0</span>
@@ -84,164 +67,38 @@ input:focus{border-color:#0a5c26;outline:none}
 </div>
 
 <div class="container">
-<div class="total-bar"><div><small style="opacity:.8">FMC GUSAU DATABASE</small><div style="font-weight:bold">Total Patients (Automatic)</div></div><b id="totalCount" style="font-size:28px;color:#FFCC00">0</b></div>
-
+<div class="total-bar"><span>Total Patients (Automatic)</span><b id="totalCount" style="font-size:26px;color:#FFCC00">0</b></div>
 <div class="card">
-<h3 id="formTitle" style="color:#0a5c26">Add New Patient</h3>
+<h3 id="formTitle" style="color:#0a5c26">Add New Patient - FMC Gusau</h3>
 <input type="file" id="picInput" accept="image/*"><img id="preview">
-<input id="pName" placeholder="Full Name * e.g Musa Ibrahim">
-<input id="pPhone" placeholder="Phone Number * e.g 08012345678">
-<select id="pDept">
-<option value="">Select Department *</option>
-<option>General Outpatient (GOPD)</option>
-<option>Paediatrics</option>
-<option>Medicine</option>
-<option>Surgery</option>
-<option>Obstetrics & Gynaecology</option>
-<option>Emergency</option>
-<option>Ophthalmology (Eye)</option>
-<option>ENT</option>
-<option>Cardiology</option>
-<option>Radiology</option>
-<option>Laboratory</option>
-<option>Pharmacy</option>
-<option>Dental</option>
-</select>
-<textarea id="pAddr" rows="2" placeholder="Address * e.g Gusau, Zamfara"></textarea>
+<input id="pName" placeholder="Full Name *">
+<input id="pPhone" placeholder="Phone Number *">
+<select id="pDept"><option value="">Select Department *</option><option>General Outpatient (GOPD)</option><option>Paediatrics</option><option>Medicine</option><option>Surgery</option><option>Emergency</option><option>Lab</option><option>Pharmacy</option></select>
+<textarea id="pAddr" rows="2" placeholder="Address *"></textarea>
 <button id="saveBtn" class="btn btn-green" onclick="savePatient()">💾 SAVE PATIENT</button>
-<button id="cancelBtn" class="btn hidden" style="background:#666;color:#fff" onclick="cancelEdit()">❌ CANCEL EDIT</button>
-<button class="btn" style="background:#000;color:#FFCC00" onclick="changePassword()">🔑 CHANGE MY PASSWORD</button>
+<button id="cancelBtn" class="btn hidden" style="background:#666;color:#fff" onclick="cancelEdit()">CANCEL EDIT</button>
 </div>
-
-<div style="position:sticky;top:77px;z-index:10;background:#eef5f0;padding:10px 0">
-<input id="search" placeholder="🔍 Search Patient by Name or Phone..." oninput="showPatients()" style="background:#fff">
-</div>
-
+<div style="position:sticky;top:72px;z-index:10;background:#eef5f0;padding:8px 0"><input id="search" placeholder="🔍 Search by Name or Phone..." oninput="showPatients()" style="background:#fff"></div>
 <div id="list"></div>
-<div id="empty" style="text-align:center;padding:30px;color:#888">No patients yet. FMC Gusau database is empty.</div>
+<div id="empty" style="text-align:center;padding:30px;color:#888">No patients yet.</div>
 </div>
 
 <script>
-// ===== PASSWORD SECURITY SYSTEM =====
-let storedPass = localStorage.getItem('fmc_gusau_app_password');
-let isLoggedIn = localStorage.getItem('fmc_gusau_is_logged_in') === 'yes';
-
-function initSecurity(){
- if(!storedPass){
-   document.getElementById('createPasswordSection').classList.remove('hidden');
-   document.getElementById('loginPasswordSection').classList.add('hidden');
-   document.getElementById('lockScreen').style.display='flex';
- }else if(!isLoggedIn){
-   document.getElementById('createPasswordSection').classList.add('hidden');
-   document.getElementById('loginPasswordSection').classList.remove('hidden');
-   document.getElementById('lockScreen').style.display='flex';
- }else{
-   document.getElementById('lockScreen').style.display='none';
- }
-}
-initSecurity();
-
-function createPassword(){
- let p1=document.getElementById('newPass').value.trim();
- let p2=document.getElementById('confirmPass').value.trim();
- if(p1.length<4){alert('Password must be at least 4 characters');return;}
- if(p1!==p2){alert('Passwords do not match');return;}
- localStorage.setItem('fmc_gusau_app_password', p1);
- localStorage.setItem('fmc_gusau_is_logged_in','yes');
- document.getElementById('lockScreen').style.display='none';
- showPatients();
- alert('Password created successfully! Welcome to FMC Gusau App');
-}
-
-function login(){
- let entered=document.getElementById('loginPass').value.trim();
- let saved=localStorage.getItem('fmc_gusau_app_password');
- let alertBox=document.getElementById('loginAlert');
- if(entered===saved){
-   localStorage.setItem('fmc_gusau_is_logged_in','yes');
-   document.getElementById('lockScreen').style.display='none';
-   document.getElementById('loginPass').value='';
-   showPatients();
- }else{
-   alertBox.innerText='❌ Wrong Password! Try again.';
-   alertBox.style.background='#f8d7da';alertBox.style.color='#721c24';
-   alertBox.classList.remove('hidden');
-   document.getElementById('lockBox').classList.add('shake');
-   setTimeout(()=>document.getElementById('lockBox').classList.remove('shake'),300);
- }
-}
-
-function logout(){
- if(confirm('Lock the app? You will need password to open again.')){
-   localStorage.removeItem('fmc_gusau_is_logged_in');
-   location.reload();
- }
-}
-
-function resetPassword(){
- if(confirm('WARNING: This will delete ALL patients and password. Are you sure?')){
-   if(confirm('Last confirmation: Delete everything and reset app?')){
-     localStorage.removeItem('fmc_gusau_app_password');
-     localStorage.removeItem('fmc_gusau_is_logged_in');
-     localStorage.removeItem('fmc_gusau_patients');
-     location.reload();
-   }
- }
-}
-
-function changePassword(){
- let oldP=prompt('Enter your current password:');
- let saved=localStorage.getItem('fmc_gusau_app_password');
- if(oldP!==saved){alert('Wrong current password');return;}
- let newP=prompt('Enter new password (min 4 chars):');
- if(!newP||newP.length<4){alert('Password too short');return;}
- let confirmP=prompt('Confirm new password:');
- if(newP!==confirmP){alert('Passwords do not match');return;}
- localStorage.setItem('fmc_gusau_app_password', newP);
- alert('Password changed successfully to: '+newP);
-}
-
-// ===== PATIENT DATABASE =====
-let patients=JSON.parse(localStorage.getItem('fmc_gusau_patients')||'[]');
-let photoData='',openId=-1,editId=null;
-document.getElementById('picInput').addEventListener('change',e=>{let f=e.target.files[0];if(!f)return;let r=new FileReader();r.onload=ev=>{photoData=ev.target.result;let pr=document.getElementById('preview');pr.src=photoData;pr.style.display='block';};r.readAsDataURL(f);});
-
-function savePatient(){
- let name=document.getElementById('pName').value.trim();
- let phone=document.getElementById('pPhone').value.trim();
- let dept=document.getElementById('pDept').value;
- let addr=document.getElementById('pAddr').value.trim();
- if(!name||!phone||!dept||!addr){alert('Please fill all required fields: Name, Phone, Department, Address');return;}
- if(editId!==null){
-  let idx=patients.findIndex(p=>p.id==editId);
-  if(idx!==-1){patients[idx].name=name;patients[idx].phone=phone;patients[idx].dept=dept;patients[idx].addr=addr;if(photoData)patients[idx].photo=photoData;}
-  editId=null;document.getElementById('formTitle').innerText='Add New Patient';document.getElementById('saveBtn').innerText='💾 SAVE PATIENT';document.getElementById('cancelBtn').classList.add('hidden');
- }else{
-  let obj={id:'FMC-'+(1001+patients.length),name,phone,dept,addr,photo:photoData||'',date:new Date().toLocaleString(),hospital:'FMC Gusau'};
-  patients.unshift(obj);
- }
- localStorage.setItem('fmc_gusau_patients',JSON.stringify(patients));
- ['pName','pPhone','pDept','pAddr'].forEach(id=>document.getElementById(id).value='');document.getElementById('picInput').value='';document.getElementById('preview').style.display='none';photoData='';showPatients();
-}
-
-function showPatients(){
- let q=document.getElementById('search').value.toLowerCase();
- let list=document.getElementById('list');list.innerHTML='';
- let filtered=patients.filter(p=>p.name.toLowerCase().includes(q)||p.phone.includes(q));
- document.getElementById('empty').style.display=filtered.length==0?'block':'none';
- document.getElementById('totalCount').innerText=patients.length;
- document.getElementById('count').innerText=patients.length+' Patients';
- filtered.forEach(p=>{
-  let idx=patients.findIndex(x=>x.id==p.id);
-  let div=document.createElement('div');div.className='patient';
-  div.innerHTML=`<img src="${p.photo||'https://cdn-icons-png.flaticon.com/512/149/149071.png'}"><div style="flex:1"><div style="display:flex;justify-content:space-between"><b>${p.name}</b><small style="background:#0a5c26;color:#fff;padding:2px 6px;border-radius:4px">${p.id}</small></div><small>📞 ${p.phone} | ${p.dept}</small><br><small>🏠 ${p.addr}</small><div style="display:flex;gap:5px;margin-top:6px"><button class="btn-small btn-view" onclick="toggleView(${idx})">${openId==idx?'CLOSE':'VIEW'}</button><button class="btn-small btn-edit" onclick="editPatient(${idx})">EDIT</button><button class="btn-small btn-del" onclick="deletePatient(${idx})">DELETE</button></div><div class="${openId==idx?'detail':'hidden'}" style="${openId==idx?'display:block':'display:none'}"><b>FMC GUSAU, ZAMFARA STATE</b><br>ID: ${p.id}<br>Name: ${p.name}<br>Phone: ${p.phone}<br>Dept: ${p.dept}<br>Address: ${p.addr}<br>Date: ${p.date}<br>Total Patients: ${patients.length} (Automatic)</div></div>`;
-  list.appendChild(div);
- });
-}
+let storedPass=localStorage.getItem('fmc_gusau_app_password');
+let isLoggedIn=localStorage.getItem('fmc_gusau_is_logged_in')==='yes';
+function init(){if(!storedPass){createSection.classList.remove('hidden');loginSection.classList.add('hidden');lockScreen.style.display='flex';}else if(!isLoggedIn){createSection.classList.add('hidden');loginSection.classList.remove('hidden');lockScreen.style.display='flex';}else{lockScreen.style.display='none';}}init();
+function createPassword(){let p1=newPass.value.trim(),p2=confirmPass.value.trim();if(p1.length<4){alert('Password must be at least 4 characters');return;}if(p1!==p2){alert('Passwords do not match');return;}localStorage.setItem('fmc_gusau_app_password',p1);localStorage.setItem('fmc_gusau_is_logged_in','yes');lockScreen.style.display='none';showPatients();}
+function login(){let e=loginPass.value.trim(),s=localStorage.getItem('fmc_gusau_app_password');if(e===s){localStorage.setItem('fmc_gusau_is_logged_in','yes');lockScreen.style.display='none';loginPass.value='';showPatients();}else{loginAlert.innerText='❌ Wrong Password!';loginAlert.style.background='#f8d7da';loginAlert.style.color='#721c24';loginAlert.classList.remove('hidden');}}
+function logout(){localStorage.removeItem('fmc_gusau_is_logged_in');location.reload();}
+function resetAll(){if(confirm('Delete all data and reset password?')){localStorage.clear();location.reload();}}
+let patients=JSON.parse(localStorage.getItem('fmc_gusau_patients')||'[]');let photoData='',openId=-1,editId=null;
+picInput.addEventListener('change',e=>{let f=e.target.files[0];if(!f)return;let r=new FileReader();r.onload=ev=>{photoData=ev.target.result;preview.src=photoData;preview.style.display='block';};r.readAsDataURL(f);});
+function savePatient(){let name=pName.value.trim(),phone=pPhone.value.trim(),dept=pDept.value,addr=pAddr.value.trim();if(!name||!phone||!dept)return alert('Fill required fields');if(editId!==null){let idx=patients.findIndex(p=>p.id==editId);if(idx!==-1){patients[idx].name=name;patients[idx].phone=phone;patients[idx].dept=dept;patients[idx].addr=addr;if(photoData)patients[idx].photo=photoData;}editId=null;formTitle.innerText='Add New Patient - FMC Gusau';saveBtn.innerText='💾 SAVE PATIENT';cancelBtn.classList.add('hidden');}else{let obj={id:'FMC-'+(1001+patients.length),name,phone,dept,addr,photo:photoData||'',date:new Date().toLocaleString()};patients.unshift(obj);}localStorage.setItem('fmc_gusau_patients',JSON.stringify(patients));['pName','pPhone','pDept','pAddr'].forEach(id=>document.getElementById(id).value='');picInput.value='';preview.style.display='none';photoData='';showPatients();}
+function showPatients(){let q=search.value.toLowerCase(),list=document.getElementById('list');list.innerHTML='';let f=patients.filter(p=>p.name.toLowerCase().includes(q)||p.phone.includes(q));empty.style.display=f.length==0?'block':'none';totalCount.innerText=patients.length;count.innerText=patients.length+' Patients';f.forEach(p=>{let idx=patients.findIndex(x=>x.id==p.id);let div=document.createElement('div');div.className='patient';div.innerHTML=`<img src="${p.photo||'https://cdn-icons-png.flaticon.com/512/149/149071.png'}"><div style="flex:1"><div style="display:flex;justify-content:space-between"><b>${p.name}</b><small style="background:#0a5c26;color:#fff;padding:2px 6px;border-radius:4px">${p.id}</small></div><small>📞 ${p.phone} | ${p.dept}</small><br><small>🏠 ${p.addr||''}</small><div style="display:flex;gap:5px;margin-top:6px"><button class="btn-small" style="background:#FFCC00" onclick="toggleView(${idx})">${openId==idx?'CLOSE':'VIEW'}</button><button class="btn-small btn-edit" onclick="editPatient(${idx})">EDIT</button><button class="btn-small btn-del" onclick="deletePatient(${idx})">DELETE</button></div><div class="${openId==idx?'':'hidden'}" style="background:#f6fff6;border:2px dashed #0a5c26;border-radius:8px;padding:8px;margin-top:6px;font-size:13px;${openId==idx?'display:block':'display:none'}"><b>FMC GUSAU</b><br>ID:${p.id}<br>Name:${p.name}<br>Phone:${p.phone}<br>Dept:${p.dept}<br>Addr:${p.addr}</div></div>`;list.appendChild(div);});}
 function toggleView(i){openId=openId==i?-1:i;showPatients();}
-function editPatient(i){let p=patients[i];editId=p.id;document.getElementById('pName').value=p.name;document.getElementById('pPhone').value=p.phone;document.getElementById('pDept').value=p.dept;document.getElementById('pAddr').value=p.addr||'';if(p.photo){document.getElementById('preview').src=p.photo;document.getElementById('preview').style.display='block';photoData=p.photo;}document.getElementById('formTitle').innerText='Edit Patient - '+p.name;document.getElementById('saveBtn').innerText='💾 UPDATE PATIENT';document.getElementById('cancelBtn').classList.remove('hidden');window.scrollTo({top:0,behavior:'smooth'});}
-function cancelEdit(){editId=null;photoData='';['pName','pPhone','pDept','pAddr'].forEach(id=>document.getElementById(id).value='');document.getElementById('picInput').value='';document.getElementById('preview').style.display='none';document.getElementById('formTitle').innerText='Add New Patient';document.getElementById('saveBtn').innerText='💾 SAVE PATIENT';document.getElementById('cancelBtn').classList.add('hidden');}
-function deletePatient(i){if(confirm('Delete '+patients[i].name+' from FMC Gusau database?')){patients.splice(i,1);localStorage.setItem('fmc_gusau_patients',JSON.stringify(patients));showPatients();}}
+function editPatient(i){let p=patients[i];editId=p.id;pName.value=p.name;pPhone.value=p.phone;pDept.value=p.dept;pAddr.value=p.addr||'';if(p.photo){preview.src=p.photo;preview.style.display='block';photoData=p.photo;}formTitle.innerText='Edit - '+p.name;saveBtn.innerText='💾 UPDATE PATIENT';cancelBtn.classList.remove('hidden');scrollTo({top:0,behavior:'smooth'});}
+function cancelEdit(){editId=null;photoData='';['pName','pPhone','pDept','pAddr'].forEach(id=>document.getElementById(id).value='');picInput.value='';preview.style.display='none';formTitle.innerText='Add New Patient - FMC Gusau';saveBtn.innerText='💾 SAVE PATIENT';cancelBtn.classList.add('hidden');}
+function deletePatient(i){if(confirm('Delete '+patients[i].name+'?')){patients.splice(i,1);localStorage.setItem('fmc_gusau_patients',JSON.stringify(patients));showPatients();}}
 showPatients();
 </script>
 </body>
