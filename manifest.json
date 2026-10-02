@@ -1,0 +1,11 @@
+{
+  "name": "FMC Gusau - Federal Medical Centre",
+  "short_name": "FMC Gusau",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#0a5c26",
+  "theme_color": "#0a5c26",
+  "icons": [
+    {"src": "logo.png","sizes": "512x512","type": "image/png"}
+  ]
+}
