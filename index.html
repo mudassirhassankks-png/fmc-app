@@ -2,217 +2,232 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FMC Gusau - Online</title>
+<title>FMC Gusau - Online v5 Fixed</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
 body{background:#eef5f0;padding-bottom:80px}
 .header{background:#0a5c26;color:#fff;padding:14px;position:sticky;top:0;z-index:20;display:flex;justify-content:space-between;align-items:center}
-.logo-box{width:46px;height:46px;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;border:3px solid #FFCC00;color:#0a5c26;font-weight:900;font-size:12px;text-align:center}
-.container{max-width:700px;margin:auto;padding:12px}
+.logo-box{width:46px;height:46px;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;border:3px solid #FFCC00;color:#0a5c26;font-weight:900;font-size:11px;text-align:center}
+.container{max-width:750px;margin:auto;padding:12px}
 .card{background:#fff;border-radius:14px;padding:18px;box-shadow:0 4px 12px rgba(0,0,0,.08);margin-bottom:12px}
 input,select,textarea{width:100%;padding:12px;border:2px solid #e5e7eb;border-radius:10px;margin:6px 0;font-size:15px}
 .btn{padding:12px;border:none;border-radius:10px;font-weight:bold;cursor:pointer;width:100%;margin-top:8px}
 .btn-green{background:#0a5c26;color:#fff}
-.patient{display:flex;gap:12px;background:#fff;border-radius:14px;padding:14px;margin:10px 0;align-items:center}
-.patient img{width:68px;height:68px;border-radius:50%;object-fit:cover;border:3px solid #0a5c26}
+.btn-red{background:#c00;color:#fff}
+.btn-blue{background:#0a4a8a;color:#fff}
+.patient{display:flex;gap:10px;background:#fff;border-radius:14px;padding:12px;margin:10px 0;align-items:center}
+.patient img{width:60px;height:60px;border-radius:50%;object-fit:cover;border:3px solid #0a5c26;cursor:pointer}
+.act-btn{padding:5px 8px;border:none;border-radius:6px;font-size:10px;font-weight:bold;cursor:pointer;margin:1px}
 .total-bar{background:#0a5c26;color:#fff;padding:14px;border-radius:12px;display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
 .hidden{display:none!important}
-#preview{width:90px;height:90px;border-radius:50%;object-fit:cover;display:none;margin:10px auto;border:3px solid #0a5c26}
-.settings-bg{position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:9999;display:none;align-items:center;justify-content:center;padding:16px}
-.settings-box{background:#fff;width:100%;max-width:400px;border-radius:18px;overflow:hidden;max-height:92vh;overflow-y:auto}
+#preview,#editPreview{width:90px;height:90px;border-radius:50%;object-fit:cover;display:none;margin:10px auto;border:3px solid #0a5c26}
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:9999;display:none;align-items:center;justify-content:center;padding:16px}
+.modal-box{background:#fff;width:100%;max-width:450px;border-radius:18px;overflow:hidden;max-height:95vh;overflow-y:auto}
+.modal-head{background:#0a5c26;color:#fff;padding:14px;display:flex;justify-content:space-between;align-items:center}
+.settings-bg{position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:9998;display:none;align-items:center;justify-content:center;padding:16px}
+.settings-box{background:#fff;width:100%;max-width:400px;border-radius:18px;overflow:hidden}
 .settings-head{background:#0a5c26;color:#fff;padding:16px;display:flex;justify-content:space-between;align-items:center}
-.settings-item{padding:14px 18px;border-bottom:1px solid #eee;display:flex;justify-content:space-between;align-items:center;cursor:pointer}
+.settings-item{padding:14px 18px;border-bottom:1px solid #eee;display:flex;justify-content:space-between;align-items:center;cursor:pointer;background:#fff}
 .settings-item:hover{background:#f5f5f5}
-.lang-btn{padding:8px 16px;border-radius:20px;border:2px solid #0a5c26;font-weight:bold;cursor:pointer;margin-left:6px;background:#fff;color:#0a5c26}
-.lang-active{background:#0a5c26!important;color:#fff!important}
+.lang-btn{padding:8px 20px;border-radius:24px;border:2px solid #0a5c26;font-weight:900;cursor:pointer;margin-left:6px;background:#fff;color:#0a5c26;transition:.2s}
+.lang-active{background:#0a5c26!important;color:#fff!important;border-color:#0a5c26!important}
 .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:2px solid #0a5c26;display:flex;justify-content:space-around;padding:8px 0;z-index:30}
 .tab-btn{flex:1;text-align:center;padding:6px;border:none;background:none;cursor:pointer;font-size:11px;font-weight:bold;color:#666}
 .tab-btn.active{color:#0a5c26;border-top:3px solid #0a5c26;margin-top:-3px}
 .tab-btn span{font-size:22px;display:block}
-table{width:100%;border-collapse:collapse;font-size:13px}
-th{background:#0a5c26;color:#fff;padding:10px 6px;text-align:left;position:sticky;top:0}
-td{padding:10px 6px;border-bottom:1px solid #eee}
+table{width:100%;border-collapse:collapse;font-size:12px}
+th{background:#0a5c26;color:#fff;padding:8px 4px;text-align:left;position:sticky;top:0}
+td{padding:8px 4px;border-bottom:1px solid #eee}
 .online-dot{width:10px;height:10px;background:#00ff00;border-radius:50%;display:inline-block;animation:blink 1s infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
-.badge{padding:3px 8px;border-radius:20px;font-size:10px;font-weight:bold;color:#fff;background:#0a5c26}
+.badge{padding:3px 7px;border-radius:20px;font-size:9px;font-weight:bold;color:#fff;background:#0a5c26}
 </style>
 </head>
 <body>
-<div id="settingsModal" class="settings-bg" onclick="if(event.target==this)closeSettings()">
-<div class="settings-box">
-<div class="settings-head"><b id="txtSetTitle">⚙️ Saituna</b><button onclick="closeSettings()" style="background:#fff;color:#0a5c26;border:none;width:32px;height:32px;border-radius:50%;font-weight:bold">X</button></div>
-<div style="padding:14px 18px;background:#f0f7f0;display:flex;justify-content:space-between;align-items:center">
-<span id="txtLangLabel" style="font-weight:bold">Harshe / Language</span>
+
+<!-- VIEW MODAL -->
+<div id="viewModal" class="modal-bg" onclick="if(event.target==this)closeView()"><div class="modal-box"><div class="modal-head"><b id="viewTitle">Bayani</b><button onclick="closeView()" style="background:#fff;color:#0a5c26;border:none;width:30px;height:30px;border-radius:50%;font-weight:bold">X</button></div><div id="viewBody" style="padding:16px"></div></div></div>
+
+<!-- EDIT MODAL -->
+<div id="editModal" class="modal-bg" onclick="if(event.target==this)closeEdit()"><div class="modal-box"><div class="modal-head"><b id="txtEditTitle">✏️ Gyara</b><button onclick="closeEdit()" style="background:#fff;color:#0a5c26;border:none;width:30px;height:30px;border-radius:50%">X</button></div><div style="padding:16px"><input type="file" id="editPicInput" accept="image/*"><img id="editPreview"><input id="eName"><input id="ePhone"><select id="eDept"></select><textarea id="eAddr" rows="2"></textarea><button id="btnUpdate" class="btn btn-green" onclick="updatePatient()">💾 Ajiye Gyara</button><button class="btn" style="background:#eee" onclick="closeEdit()">Soke</button></div></div></div>
+
+<!-- SETTINGS - KAMAR HOTONKA -->
+<div id="settingsModal" class="settings-bg" onclick="if(event.target==this)closeSettings()"><div class="settings-box">
+<div class="settings-head"><b id="txtSetTitle">⚙️ Settings</b><button onclick="closeSettings()" style="background:#fff;color:#0a5c26;border:none;width:32px;height:32px;border-radius:50%;font-weight:bold;font-size:16px">X</button></div>
+<div style="padding:16px 18px;background:#eaf4ec;display:flex;justify-content:space-between;align-items:center">
+<span id="txtLangLabel" style="font-weight:900;font-size:16px">Language</span>
 <div><button id="btnEn" class="lang-btn" onclick="setLang('en')">EN</button><button id="btnHa" class="lang-btn lang-active" onclick="setLang('ha')">HA</button></div>
 </div>
-<div class="settings-item" onclick="exportExcel()"><span id="txtBackup">💾 Ajiye Bayanan (Excel)</span><span>›</span></div>
-<div class="settings-item" onclick="window.print()"><span id="txtPrint">🖨️ Buga Jerin Marasa Lafiya</span><span>›</span></div>
-<div class="settings-item"><span id="txtOnline">🟢 Matsayin Online</span><span style="color:green;font-weight:bold">LIVE</span></div>
-<div class="settings-item" onclick="if(confirm('Fita? / Logout?')){localStorage.clear(); location.reload();}" style="background:#fff0f0;color:#b00;font-weight:900"><span id="txtLogout">🚪 FITA / Logout</span><span>›</span></div>
+<div class="settings-item" onclick="exportExcel()"><span id="txtBackup">💾 Backup (Excel)</span><span>›</span></div>
+<div class="settings-item" onclick="window.print()"><span id="txtPrint">🖨️ Print List</span><span>›</span></div>
+<div class="settings-item"><span id="txtOnline">🟢 Online Status</span><span style="color:#0a7e2a;font-weight:900">LIVE</span></div>
+<div class="settings-item" onclick="if(confirm('Fita? / Logout?')){localStorage.clear(); location.reload();}" style="background:#fff0f0"><span id="txtLogout" style="color:#b00;font-weight:900">🚪 LOGOUT</span><span style="color:#b00">›</span></div>
 <div style="padding:14px;background:#f9f9f9;text-align:center;font-size:11px;color:#666">FMC Gusau v4.0 Online<br>Federal Medical Centre Gusau<br><span style="color:green">● Online Database - Duk Asibiti na gani</span></div>
-</div>
-</div>
-<div class="header">
-<div style="display:flex;align-items:center;gap:10px"><div class="logo-box">FMC<br><span style="font-size:7px">GUSAU</span></div><div><div style="font-weight:900;font-size:14px">FMC GUSAU <span class="online-dot"></span></div><small style="font-size:9px" id="txtOnlineSub">ONLINE - Duk Asibiti na Gani</small></div></div>
-<div style="display:flex;gap:8px;align-items:center"><span id="count" style="background:#FFCC00;color:#000;padding:5px 10px;border-radius:20px;font-weight:bold;font-size:11px">0</span><button onclick="openSettings()" style="background:#fff;color:#0a5c26;border:none;width:36px;height:36px;border-radius:50%;font-size:20px;cursor:pointer">⚙️</button></div>
-</div>
+</div></div>
+
+<div class="header"><div style="display:flex;align-items:center;gap:10px"><div class="logo-box">FMC<br><span style="font-size:7px">GUSAU</span></div><div><div style="font-weight:900;font-size:14px">FMC GUSAU <span class="online-dot"></span></div><small style="font-size:9px" id="txtOnlineSub">ONLINE - All Hospital See It</small></div></div><div style="display:flex;gap:8px;align-items:center"><span id="count" style="background:#FFCC00;color:#000;padding:5px 10px;border-radius:20px;font-weight:bold;font-size:11px">0</span><button onclick="openSettings()" style="background:#fff;color:#0a5c26;border:none;width:36px;height:36px;border-radius:50%;font-size:20px;cursor:pointer">⚙️</button></div></div>
+
 <div class="container">
-<div id="tabAdd">
-<div class="total-bar"><span id="txtTotal">Jimillar Marasa Lafiya (Online)</span><b id="totalCount" style="font-size:26px;color:#FFCC00">0</b></div>
-<div class="card">
-<h3 id="txtFormTitle" style="color:#0a5c26">Saka Sabon Mara Lafiya</h3>
-<input type="file" id="picInput" accept="image/*"><img id="preview">
-<input id="pName" placeholder="Cikakken Suna *"><input id="pPhone" placeholder="Lambar Waya *">
-<select id="pDept"><option value="" id="optDept">Zabi Sashen *</option><option>GOPD</option><option>Paediatrics</option><option>Medicine</option><option>Surgery</option><option>Emergency</option><option>Lab</option><option>Pharmacy</option><option>ANC</option><option>ART</option></select>
-<textarea id="pAddr" rows="2" placeholder="Adireshi *"></textarea>
-<button id="saveBtn" class="btn btn-green" onclick="savePatientOnline()">💾 AJIYE ONLINE - KOWA ZAI GANI</button>
+<div id="tabAdd"><div class="total-bar"><span id="txtTotal">Total Patients (Online)</span><b id="totalCount" style="font-size:26px;color:#FFCC00">0</b></div>
+<div class="card"><h3 id="txtFormTitle" style="color:#0a5c26">Add New Patient</h3><input type="file" id="picInput" accept="image/*"><img id="preview"><input id="pName" placeholder="Full Name *"><input id="pPhone" placeholder="Phone *"><select id="pDept"></select><textarea id="pAddr" rows="2" placeholder="Address *"></textarea><button id="saveBtn" class="btn btn-green" onclick="savePatientOnline()">💾 SAVE ONLINE</button></div>
+<div style="padding:8px 0"><input id="search" placeholder="🔍 Search name or phone..." oninput="showAllTable()" style="background:#fff;width:100%;padding:12px;border-radius:10px;border:2px solid #e5e7eb"></div><div id="list"></div></div>
+
+<div id="tabAll" class="hidden"><div class="card" style="background:#0a5c26;color:#fff;text-align:center"><h3 id="txtAllTitle">🏥 ALL PATIENTS IN HOSPITAL</h3><div style="margin-top:10px"><b id="allTotal" style="font-size:32px;color:#FFCC00">0</b></div></div>
+<div style="display:flex;gap:6px;margin-bottom:10px"><select id="filterDept" onchange="showAllTable()" style="flex:1;padding:10px;border-radius:10px"></select><button style="width:auto;background:#FFCC00;color:#000;padding:10px;border:none;border-radius:10px;font-weight:bold" onclick="showAllTable()">🔄</button></div>
+<div class="card" style="padding:0;overflow:auto;max-height:65vh"><table><thead><tr><th>#</th><th id="thPhoto">Photo</th><th id="thName">Name</th><th id="thPhone">Phone</th><th id="thDept">Dept</th><th>Action</th></tr></thead><tbody id="allBody"></tbody></table></div></div>
+
+<div id="tabStats" class="hidden"><div class="card"><h3 id="txtStatsTitle" style="color:#0a5c26">📊 Hospital Statistics</h3><div id="statsGrid" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px"></div></div><div class="card"><h4 id="txtRecent">🕒 Last 5</h4><div id="recentList" style="margin-top:10px"></div></div></div>
 </div>
-<div style="padding:8px 0"><input id="search" placeholder="🔍 Nemo suna ko waya..." oninput="showAllTable()" style="background:#fff;width:100%;padding:12px;border-radius:10px;border:2px solid #e5e7eb"></div>
-<div id="list"></div>
-</div>
-<div id="tabAll" class="hidden">
-<div class="card" style="background:#0a5c26;color:#fff;text-align:center"><h3 id="txtAllTitle">🏥 DUK MARASA LAFIYA A ASIBITI</h3><p id="txtAllSub" style="font-size:11px;opacity:.9;margin-top:4px">Duk wanda aka yi wa register a FMC Gusau zai bayyana anan LIVE</p><div style="margin-top:10px"><b id="allTotal" style="font-size:32px;color:#FFCC00">0</b><div style="font-size:11px" id="txtAllCount">Jimilla - Online</div></div></div>
-<div style="display:flex;gap:6px;margin-bottom:10px"><select id="filterDept" onchange="showAllTable()" style="flex:1;padding:10px;border-radius:10px"><option value="" id="optAllDept">Duk Sashen / All Departments</option><option>GOPD</option><option>Paediatrics</option><option>Medicine</option><option>Surgery</option><option>Emergency</option><option>Lab</option><option>Pharmacy</option><option>ANC</option><option>ART</option></select><button style="width:auto;background:#FFCC00;color:#000;padding:10px;border:none;border-radius:10px;font-weight:bold" onclick="showAllTable()">🔄</button></div>
-<div class="card" style="padding:0;overflow:auto;max-height:65vh"><table><thead><tr><th>#</th><th id="thPhoto">Hoto</th><th id="thName">Suna</th><th id="thPhone">Waya</th><th id="thDept">Sashe</th><th id="thDate">Rana</th></tr></thead><tbody id="allBody"></tbody></table></div>
-</div>
-<div id="tabStats" class="hidden">
-<div class="card"><h3 id="txtStatsTitle" style="color:#0a5c26">📊 Kididdiga Ta Asibiti (Online)</h3><div id="statsGrid" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px"></div></div>
-<div class="card"><h4 id="txtRecent">🕒 Sabbin 5 - Online</h4><div id="recentList" style="margin-top:10px"></div></div>
-</div>
-</div>
-<div class="bottom-nav">
-<button class="tab-btn active" id="navAdd" onclick="switchTab('add')"><span>➕</span><b id="navTxtAdd">Saka</b></button>
-<button class="tab-btn" id="navAll" onclick="switchTab('all')"><span>🏥</span><b id="navTxtAll">Cikin Asibiti</b></button>
-<button class="tab-btn" id="navStats" onclick="switchTab('stats')"><span>📊</span><b id="navTxtStats">Kididdiga</b></button>
-</div>
+
+<div class="bottom-nav"><button class="tab-btn active" id="navAdd" onclick="switchTab('add')"><span>➕</span><b id="navTxtAdd">Add</b></button><button class="tab-btn" id="navAll" onclick="switchTab('all')"><span>🏥</span><b id="navTxtAll">In Hospital</b></button><button class="tab-btn" id="navStats" onclick="switchTab('stats')"><span>📊</span><b id="navTxtStats">Stats</b></button></div>
+
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
-import { getFirestore, collection, addDoc, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
-const firebaseConfig = {
-  apiKey: "AIzaSyDJ6iVZ3uCdxtEPO9leU6nX-pURug1wVNw",
-  authDomain: "fmc-gusau.firebaseapp.com",
-  projectId: "fmc-gusau",
-  storageBucket: "fmc-gusau.firebasestorage.app",
-  messagingSenderId: "911652359330",
-  appId: "1:911652359330:web:506ec4fdb1accc00e75bfb"
-};
+import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, deleteDoc, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
+const firebaseConfig = { apiKey: "AIzaSyDJ6iVZ3uCdxtEPO9leU6nX-pURug1wVNw", authDomain: "fmc-gusau.firebaseapp.com", projectId: "fmc-gusau", storageBucket: "fmc-gusau.firebasestorage.app", messagingSenderId: "911652359330", appId: "1:911652359330:web:506ec4fdb1accc00e75bfb" };
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const colRef = collection(db, "patients");
+const DEPARTMENTS = ["GOPD","Family Medicine","Internal Medicine","General Surgery","Paediatrics","Obstetrics & Gynaecology (O&G)","ANC","Labour Ward","Ophthalmology (Eye)","ENT","Dental","Physiotherapy","Mental Health / Psychiatry","Emergency / A&E","NHIS","ART / HIV","TB / DOTS","Radiology / X-Ray & Ultrasound","Laboratory","Pharmacy","Anaesthesia","Orthopaedics & Trauma","Urology","Cardiology","Dermatology","Dialysis / Nephrology","ICU","SCBU","Immunization / EPI","MOPD"];
+
+function fillDeptSelect(){
+ let opts = '<option value="" id="optDept">Select Department *</option>' + DEPARTMENTS.map(d=>`<option value="${d}">${d}</option>`).join('');
+ document.getElementById('pDept').innerHTML = opts;
+ document.getElementById('eDept').innerHTML = '<option value="">Select Dept</option>' + DEPARTMENTS.map(d=>`<option value="${d}">${d}</option>`).join('');
+ document.getElementById('filterDept').innerHTML = '<option value="" id="optAllDept">All Departments</option>' + DEPARTMENTS.map(d=>`<option value="${d}">${d}</option>`).join('');
+}
 
 const T = {
-en:{setTitle:"⚙️ Settings",langLabel:"Language",backup:"💾 Backup (Excel)",print:"🖨️ Print List",online:"🟢 Online Status",logout:"🚪 LOGOUT",onlineSub:"ONLINE - All Hospital See It",total:"Total Patients (Online)",formTitle:"Add New Patient",optDept:"Select Department *",search:"🔍 Search name or phone...",namePh:"Full Name *",phonePh:"Phone Number *",addrPh:"Address *",save:"💾 SAVE ONLINE - Everyone Will See",allTitle:"🏥 ALL PATIENTS IN HOSPITAL",allSub:"Everyone registered at FMC Gusau appears here LIVE",allCount:"Total - Online",allDept:"All Departments",thPhoto:"Photo",thName:"Name",thPhone:"Phone",thDept:"Dept",thDate:"Date",statsTitle:"📊 Hospital Statistics",recent:"🕒 Last 5 - Online",navAdd:"Add",navAll:"In Hospital",navStats:"Stats"},
-ha:{setTitle:"⚙️ Saituna",langLabel:"Harshe",backup:"💾 Ajiye Bayanan (Excel)",print:"🖨️ Buga Jerin",online:"🟢 Matsayin Online",logout:"🚪 FITA",onlineSub:"ONLINE - Duk Asibiti na Gani",total:"Jimillar Marasa Lafiya (Online)",formTitle:"Saka Sabon Mara Lafiya",optDept:"Zabi Sashen *",search:"🔍 Nemo suna ko waya...",namePh:"Cikakken Suna *",phonePh:"Lambar Waya *",addrPh:"Adireshi *",save:"💾 AJIYE ONLINE - KOWA ZAI GANI",allTitle:"🏥 DUK MARASA LAFIYA A ASIBITI",allSub:"Duk wanda aka yi wa register a FMC Gusau zai bayyana anan LIVE",allCount:"Jimilla - Online",allDept:"Duk Sashen",thPhoto:"Hoto",thName:"Suna",thPhone:"Waya",thDept:"Sashe",thDate:"Rana",statsTitle:"📊 Kididdiga Ta Asibiti",recent:"🕒 Sabbin 5 - Online",navAdd:"Saka",navAll:"Cikin Asibiti",navStats:"Kididdiga"}
+en:{setTitle:"⚙️ Settings",langLabel:"Language",backup:"💾 Backup (Excel)",print:"🖨️ Print List",online:"🟢 Online Status",logout:"🚪 LOGOUT",onlineSub:"ONLINE - All Hospital See It",total:"Total Patients (Online)",formTitle:"Add New Patient",optDept:"Select Department *",search:"🔍 Search name or phone...",namePh:"Full Name *",phonePh:"Phone Number *",addrPh:"Address *",save:"💾 SAVE ONLINE - Everyone Will See",allTitle:"🏥 ALL PATIENTS IN HOSPITAL",allDept:"All Departments",thPhoto:"Photo",thName:"Name",thPhone:"Phone",thDept:"Dept",statsTitle:"📊 Hospital Statistics",recent:"🕒 Last 5 - Online",navAdd:"Add",navAll:"In Hospital",navStats:"Stats",editTitle:"✏️ Edit Patient",btnUpdate:"💾 Save Changes"},
+ha:{setTitle:"⚙️ Saituna",langLabel:"Harshe",backup:"💾 Ajiye Bayanan (Excel)",print:"🖨️ Buga Jerin",online:"🟢 Matsayin Online",logout:"🚪 FITA",onlineSub:"ONLINE - Duk Asibiti na Gani",total:"Jimillar Marasa Lafiya (Online)",formTitle:"Saka Sabon Mara Lafiya",optDept:"Zabi Sashen *",search:"🔍 Nemo suna ko waya...",namePh:"Cikakken Suna *",phonePh:"Lambar Waya *",addrPh:"Adireshi *",save:"💾 AJIYE ONLINE - KOWA ZAI GANI",allTitle:"🏥 DUK MARASA LAFIYA A ASIBITI",allDept:"Duk Sashen",thPhoto:"Hoto",thName:"Suna",thPhone:"Waya",thDept:"Sashe",statsTitle:"📊 Kididdiga Ta Asibiti",recent:"🕒 Sabbin 5 - Online",navAdd:"Saka",navAll:"Cikin Asibiti",navStats:"Kididdiga",editTitle:"✏️ Gyara Bayani",btnUpdate:"💾 Ajiye Gyara"}
 };
-let curLang=localStorage.getItem('fmc_lang')||'ha';
+
+let curLang=localStorage.getItem('fmc_lang')||'en';
 window.setLang=(l)=>{
-curLang=l; localStorage.setItem('fmc_lang',l);
-applyLang();
+ curLang=l; localStorage.setItem('fmc_lang',l);
+ applyLang();
 }
 window.applyLang=()=>{
-let t=T[curLang];
-document.getElementById('txtSetTitle').innerText=t.setTitle;
-document.getElementById('txtLangLabel').innerText=t.langLabel;
-document.getElementById('txtBackup').innerText=t.backup;
-document.getElementById('txtPrint').innerText=t.print;
-document.getElementById('txtOnline').innerText=t.online;
-document.getElementById('txtLogout').innerText=t.logout;
-document.getElementById('txtOnlineSub').innerText=t.onlineSub;
-document.getElementById('txtTotal').innerText=t.total;
-document.getElementById('txtFormTitle').innerText=t.formTitle;
-document.getElementById('optDept').innerText=t.optDept;
-document.getElementById('search').placeholder=t.search;
-document.getElementById('pName').placeholder=t.namePh;
-document.getElementById('pPhone').placeholder=t.phonePh;
-document.getElementById('pAddr').placeholder=t.addrPh;
-document.getElementById('saveBtn').innerText=t.save;
-document.getElementById('txtAllTitle').innerText=t.allTitle;
-document.getElementById('txtAllSub').innerText=t.allSub;
-document.getElementById('txtAllCount').innerText=t.allCount;
-document.getElementById('optAllDept').innerText=t.allDept;
-document.getElementById('thPhoto').innerText=t.thPhoto;
-document.getElementById('thName').innerText=t.thName;
-document.getElementById('thPhone').innerText=t.thPhone;
-document.getElementById('thDept').innerText=t.thDept;
-document.getElementById('thDate').innerText=t.thDate;
-document.getElementById('txtStatsTitle').innerText=t.statsTitle;
-document.getElementById('txtRecent').innerText=t.recent;
-document.getElementById('navTxtAdd').innerText=t.navAdd;
-document.getElementById('navTxtAll').innerText=t.navAll;
-document.getElementById('navTxtStats').innerText=t.navStats;
-document.getElementById('btnEn').className='lang-btn '+(curLang=='en'?'lang-active':'');
-document.getElementById('btnHa').className='lang-btn '+(curLang=='ha'?'lang-active':'');
+ let t=T[curLang];
+ document.getElementById('txtSetTitle').innerText=t.setTitle;
+ document.getElementById('txtLangLabel').innerText=t.langLabel;
+ document.getElementById('txtBackup').innerText=t.backup;
+ document.getElementById('txtPrint').innerText=t.print;
+ document.getElementById('txtOnline').innerText=t.online;
+ document.getElementById('txtLogout').innerText=t.logout;
+ document.getElementById('txtOnlineSub').innerText=t.onlineSub;
+ document.getElementById('txtTotal').innerText=t.total;
+ document.getElementById('txtFormTitle').innerText=t.formTitle;
+ let od=document.getElementById('optDept'); if(od) od.innerText=t.optDept;
+ let oad=document.getElementById('optAllDept'); if(oad) oad.innerText=t.allDept;
+ document.getElementById('search').placeholder=t.search;
+ document.getElementById('pName').placeholder=t.namePh;
+ document.getElementById('pPhone').placeholder=t.phonePh;
+ document.getElementById('pAddr').placeholder=t.addrPh;
+ document.getElementById('saveBtn').innerText=t.save;
+ document.getElementById('txtAllTitle').innerText=t.allTitle;
+ document.getElementById('thPhoto').innerText=t.thPhoto;
+ document.getElementById('thName').innerText=t.thName;
+ document.getElementById('thPhone').innerText=t.thPhone;
+ document.getElementById('thDept').innerText=t.thDept;
+ document.getElementById('txtStatsTitle').innerText=t.statsTitle;
+ document.getElementById('txtRecent').innerText=t.recent;
+ document.getElementById('navTxtAdd').innerText=t.navAdd;
+ document.getElementById('navTxtAll').innerText=t.navAll;
+ document.getElementById('navTxtStats').innerText=t.navStats;
+ document.getElementById('txtEditTitle').innerText=t.editTitle;
+ document.getElementById('btnUpdate').innerText=t.btnUpdate;
+ document.getElementById('btnEn').className='lang-btn '+(curLang=='en'?'lang-active':'');
+ document.getElementById('btnHa').className='lang-btn '+(curLang=='ha'?'lang-active':'');
 }
+
 window.switchTab=(n)=>{
-document.getElementById('tabAdd').classList.add('hidden');document.getElementById('tabAll').classList.add('hidden');document.getElementById('tabStats').classList.add('hidden');
-document.getElementById('navAdd').classList.remove('active');document.getElementById('navAll').classList.remove('active');document.getElementById('navStats').classList.remove('active');
-if(n=='add'){document.getElementById('tabAdd').classList.remove('hidden');document.getElementById('navAdd').classList.add('active');}
-if(n=='all'){document.getElementById('tabAll').classList.remove('hidden');document.getElementById('navAll').classList.add('active');}
-if(n=='stats'){document.getElementById('tabStats').classList.remove('hidden');document.getElementById('navStats').classList.add('active');}
+ document.getElementById('tabAdd').classList.add('hidden');document.getElementById('tabAll').classList.add('hidden');document.getElementById('tabStats').classList.add('hidden');
+ document.getElementById('navAdd').classList.remove('active');document.getElementById('navAll').classList.remove('active');document.getElementById('navStats').classList.remove('active');
+ if(n=='add'){document.getElementById('tabAdd').classList.remove('hidden');document.getElementById('navAdd').classList.add('active');}
+ if(n=='all'){document.getElementById('tabAll').classList.remove('hidden');document.getElementById('navAll').classList.add('active');}
+ if(n=='stats'){document.getElementById('tabStats').classList.remove('hidden');document.getElementById('navStats').classList.add('active');}
 }
 window.openSettings=()=>{document.getElementById('settingsModal').style.display='flex';}
 window.closeSettings=()=>{document.getElementById('settingsModal').style.display='none';}
+window.closeView=()=>{document.getElementById('viewModal').style.display='none';}
+window.closeEdit=()=>{document.getElementById('editModal').style.display='none';}
 window.exportExcel=()=>{
-let csv='ID,Name,Phone,Department,Address,Date\n'+patients.map(p=>`${p.id},"${p.name}",${p.phone},${p.dept},"${(p.addr||'').replace(/"/g,'')}",${p.date}`).join('\n');
-let blob=new Blob([csv],{type:'text/csv'});let url=URL.createObjectURL(blob);let a=document.createElement('a');a.href=url;a.download='FMC_Gusau_'+new Date().toISOString().slice(0,10)+'.csv';a.click();
+ let csv='ID,Name,Phone,Department,Address,Date\n'+patients.map(p=>`${p.id},"${p.name}",${p.phone},${p.dept},"${(p.addr||'').replace(/"/g,'')}",${p.date}`).join('\n');
+ let blob=new Blob([csv],{type:'text/csv'});let url=URL.createObjectURL(blob);let a=document.createElement('a');a.href=url;a.download='FMC_Gusau_'+new Date().toISOString().slice(0,10)+'.csv';a.click();
 }
-let photoData='', patients=[];
+let photoData='', editPhotoData='', patients=[], editDocId=null;
 picInput.addEventListener('change',e=>{let f=e.target.files[0];if(!f)return;let r=new FileReader();r.onload=ev=>{photoData=ev.target.result;preview.src=photoData;preview.style.display='block';};r.readAsDataURL(f);});
+editPicInput.addEventListener('change',e=>{let f=e.target.files[0];if(!f)return;let r=new FileReader();r.onload=ev=>{editPhotoData=ev.target.result;editPreview.src=editPhotoData;editPreview.style.display='block';};r.readAsDataURL(f);});
 window.savePatientOnline=async()=>{
-let name=pName.value.trim(),phone=pPhone.value.trim(),dept=pDept.value,addr=pAddr.value.trim();
-if(!name||!phone||!dept)return alert(curLang=='ha'?'Cika bayanan gaba daya':'Please fill all required fields');
-saveBtn.innerText=curLang=='ha'?'Ana Ajiyewa...':'Saving...'; saveBtn.disabled=true;
-try{
-await addDoc(colRef,{id:'FMC-'+Date.now(),name,phone,dept,addr,photo:photoData||'',date:new Date().toLocaleDateString(),timestamp:Date.now()});
-pName.value=pPhone.value=pDept.value=pAddr.value='';picInput.value='';preview.style.display='none';photoData='';
-alert(curLang=='ha'?'An ajiye! Kowa a asibiti zai gani 🟢':'Saved! Everyone in hospital will see it 🟢');
-}catch(e){alert(e.message)}
-applyLang(); saveBtn.disabled=false;
+ let name=pName.value.trim(),phone=pPhone.value.trim(),dept=pDept.value,addr=pAddr.value.trim();
+ if(!name||!phone||!dept)return alert(curLang=='ha'?'Cika bayanan gaba daya':'Please fill all required fields');
+ saveBtn.innerText=curLang=='ha'?'Ana Ajiyewa...':'Saving...'; saveBtn.disabled=true;
+ try{ await addDoc(colRef,{id:'FMC-'+Date.now(),name,phone,dept,addr,photo:photoData||'',date:new Date().toLocaleDateString(),timestamp:Date.now()});
+ pName.value=pPhone.value=pDept.value=pAddr.value='';picInput.value='';preview.style.display='none';photoData='';
+ alert(curLang=='ha'?'An ajiye! Kowa a asibiti zai gani 🟢':'Saved! Everyone will see it 🟢');
+ }catch(e){alert(e.message)} saveBtn.disabled=false; applyLang();
+}
+window.viewPatient=(i)=>{
+ let p=patients[i];
+ document.getElementById('viewBody').innerHTML=`<div style="text-align:center"><img src="${p.photo||'https://cdn-icons-png.flaticon.com/512/149/149071.png'}" style="width:110px;height:110px;border-radius:50%;border:4px solid #0a5c26;object-fit:cover"><h2 style="margin-top:10px;color:#0a5c26">${p.name}</h2><small style="background:#0a5c26;color:#fff;padding:4px 10px;border-radius:20px">${p.id}</small></div><div style="margin-top:16px;line-height:2"><b>📞 ${T[curLang].thPhone}:</b> ${p.phone}<br><b>🏥 ${T[curLang].thDept}:</b> ${p.dept}<br><b>🏠 Address:</b> ${p.addr||'-'}<br><b>📅 Date:</b> ${p.date}</div><div style="display:flex;gap:8px;margin-top:14px"><button class="btn btn-blue" style="flex:1" onclick="closeView();openEdit(${i})">✏️ Edit</button><button class="btn btn-red" style="flex:1" onclick="deletePatient('${p.docId}');closeView();">🗑️ Delete</button></div>`;
+ document.getElementById('viewModal').style.display='flex';
+}
+window.openEdit=(i)=>{
+ let p=patients[i]; editDocId=p.docId; editPhotoData=p.photo||'';
+ eName.value=p.name; ePhone.value=p.phone; eDept.value=p.dept; eAddr.value=p.addr||'';
+ if(p.photo){editPreview.src=p.photo; editPreview.style.display='block';} else {editPreview.style.display='none';}
+ document.getElementById('editModal').style.display='flex';
+}
+window.updatePatient=async()=>{
+ if(!editDocId) return;
+ let name=eName.value.trim(), phone=ePhone.value.trim(), dept=eDept.value, addr=eAddr.value.trim();
+ if(!name||!phone||!dept) return alert('Fill all!');
+ try{ await updateDoc(doc(db,"patients",editDocId),{name,phone,dept,addr,photo:editPhotoData||''}); alert('Updated! ✅'); closeEdit(); }catch(e){alert(e.message)}
+}
+window.deletePatient=async(docId)=>{
+ if(!confirm(curLang=='ha'?'Tabbas goge?':'Are you sure to delete?')) return;
+ try{ await deleteDoc(doc(db,"patients",docId)); }catch(e){alert(e.message)}
 }
 function listen(){
-onSnapshot(query(colRef, orderBy("timestamp","desc")), snap=>{
- patients=[];snap.forEach(d=>patients.push(d.data()));
- document.getElementById('totalCount').innerText=patients.length;
- document.getElementById('count').innerText=patients.length;
- document.getElementById('allTotal').innerText=patients.length;
- let list=document.getElementById('list');list.innerHTML='';
- patients.slice(0,10).forEach(p=>{
-  let div=document.createElement('div');div.className='patient';
-  div.innerHTML=`<img src="${p.photo||'https://cdn-icons-png.flaticon.com/512/149/149071.png'}"><div style="flex:1"><b>${p.name}</b> <small style="background:#0a5c26;color:#fff;padding:2px 6px;border-radius:4px">${p.id}</small><br><small>📞 ${p.phone} | ${p.dept}</small><br><small style="color:green">🟢 ${p.date}</small></div>`;
-  list.appendChild(div);
+ onSnapshot(query(colRef, orderBy("timestamp","desc")), snap=>{
+  patients=[];snap.forEach(d=>{ let data=d.data(); data.docId=d.id; patients.push(data); });
+  document.getElementById('totalCount').innerText=patients.length;
+  document.getElementById('count').innerText=patients.length;
+  document.getElementById('allTotal').innerText=patients.length;
+  let list=document.getElementById('list');list.innerHTML='';
+  patients.slice(0,20).forEach((p,idx)=>{
+   let div=document.createElement('div');div.className='patient';
+   div.innerHTML=`<img src="${p.photo||'https://cdn-icons-png.flaticon.com/512/149/149071.png'}" onclick="viewPatient(${idx})"><div style="flex:1" onclick="viewPatient(${idx})"><b>${p.name}</b> <small style="background:#0a5c26;color:#fff;padding:2px 6px;border-radius:4px">${p.id}</small><br><small>📞 ${p.phone} | ${p.dept}</small><br><small style="color:green">🟢 ${p.date}</small></div><div style="display:flex;flex-direction:column"><button class="act-btn" style="background:#0a4a8a;color:#fff" onclick="viewPatient(${idx})">👁️</button><button class="act-btn" style="background:#FFCC00" onclick="openEdit(${idx})">✏️</button><button class="act-btn" style="background:#c00;color:#fff" onclick="deletePatient('${p.docId}')">🗑️</button></div>`;
+   list.appendChild(div);
+  });
+  showAllTable();showStats();
  });
- showAllTable();showStats();
-});
 }
 window.showAllTable=()=>{
-let dept=filterDept.value;let q=search.value.toLowerCase();
-let filtered=patients.filter(p=>{
- return (dept? p.dept==dept:true) && (q? (p.name.toLowerCase().includes(q)||p.phone.includes(q)):true);
-});
-let tbody=document.getElementById('allBody');tbody.innerHTML='';
-filtered.forEach((p,i)=>{
- let tr=document.createElement('tr');
- tr.innerHTML=`<td>${i+1}</td><td><img src="${p.photo||'https://cdn-icons-png.flaticon.com/512/149/149071.png'}" style="width:32px;height:32px;border-radius:50%;object-fit:cover"></td><td><b>${p.name}</b><br><small style="color:#666">${p.id}</small></td><td>${p.phone}</td><td><span class="badge">${p.dept}</span></td><td><small>${p.date}</small></td>`;
- tbody.appendChild(tr);
-});
+ let dept=filterDept.value;let q=search.value.toLowerCase();
+ let filtered=patients.filter(p=>{ return (dept? p.dept==dept:true) && (q? (p.name.toLowerCase().includes(q)||p.phone.includes(q)):true); });
+ let tbody=document.getElementById('allBody');tbody.innerHTML='';
+ filtered.forEach((p,i)=>{
+  let realIdx = patients.indexOf(p);
+  let tr=document.createElement('tr');
+  tr.innerHTML=`<td>${i+1}</td><td><img src="${p.photo||'https://cdn-icons-png.flaticon.com/512/149/149071.png'}" style="width:32px;height:32px;border-radius:50%;object-fit:cover;cursor:pointer" onclick="viewPatient(${realIdx})"></td><td><b>${p.name}</b><br><small style="color:#666">${p.id}</small></td><td>${p.phone}</td><td><span class="badge">${p.dept}</span></td><td><button class="act-btn" style="background:#0a4a8a;color:#fff" onclick="viewPatient(${realIdx})">👁️</button> <button class="act-btn" style="background:#FFCC00" onclick="openEdit(${realIdx})">✏️</button> <button class="act-btn" style="background:#c00;color:#fff" onclick="deletePatient('${p.docId}')">🗑️</button></td>`;
+  tbody.appendChild(tr);
+ });
 }
 window.showStats=()=>{
-let depts={};patients.forEach(p=>{depts[p.dept]=(depts[p.dept]||0)+1});
-let grid=document.getElementById('statsGrid');grid.innerHTML='';
-Object.entries(depts).forEach(([d,c])=>{
- let div=document.createElement('div');div.className='card';div.style.textAlign='center';div.style.padding='14px';
- div.innerHTML=`<div style="font-size:22px">🏥</div><b>${d}</b><br><span style="font-size:20px;color:#0a5c26;font-weight:900">${c}</span>`;
- grid.appendChild(div);
-});
-if(Object.keys(depts).length==0)grid.innerHTML='<small style="color:#888">No data / Babu bayani tukuna</small>';
-let recent=document.getElementById('recentList');recent.innerHTML='';
-patients.slice(0,5).forEach(p=>{
- let div=document.createElement('div');div.style.padding='8px';div.style.borderBottom='1px solid #eee';
- div.innerHTML=`<b>${p.name}</b> - ${p.dept} <small style="float:right">${p.date}</small>`;
- recent.appendChild(div);
-});
+ let depts={};patients.forEach(p=>{depts[p.dept]=(depts[p.dept]||0)+1});
+ let grid=document.getElementById('statsGrid');grid.innerHTML='';
+ Object.entries(depts).forEach(([d,c])=>{
+  let div=document.createElement('div');div.className='card';div.style.textAlign='center';div.style.padding='12px';
+  div.innerHTML=`<b style="font-size:11px">${d}</b><br><span style="font-size:18px;color:#0a5c26;font-weight:900">${c}</span>`;
+  grid.appendChild(div);
+ });
+ if(Object.keys(depts).length==0)grid.innerHTML='<small>No data</small>';
+ let recent=document.getElementById('recentList');recent.innerHTML='';
+ patients.slice(0,5).forEach(p=>{ let div=document.createElement('div');div.style.padding='8px';div.style.borderBottom='1px solid #eee'; div.innerHTML=`<b>${p.name}</b> - ${p.dept} <small style="float:right">${p.date}</small>`; recent.appendChild(div); });
 }
-applyLang();listen();
+fillDeptSelect(); applyLang(); listen();
 </script>
 </body>
 </html>
