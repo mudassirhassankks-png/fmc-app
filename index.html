@@ -3,6 +3,8 @@
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>FMC Gusau - Online v5 Fixed</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0a5c26">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
 body{background:#eef5f0;padding-bottom:80px}
@@ -228,6 +230,11 @@ window.showStats=()=>{
  patients.slice(0,5).forEach(p=>{ let div=document.createElement('div');div.style.padding='8px';div.style.borderBottom='1px solid #eee'; div.innerHTML=`<b>${p.name}</b> - ${p.dept} <small style="float:right">${p.date}</small>`; recent.appendChild(div); });
 }
 fillDeptSelect(); applyLang(); listen();
+</script>
+<script>
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('sw.js');
+}
 </script>
 </body>
 </html>
